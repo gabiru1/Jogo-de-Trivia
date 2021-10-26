@@ -1,4 +1,4 @@
-import { ADD_EMAIL, ADD_NAME, UPDATE_SCORE } from '../actions/index';
+import { ADD_EMAIL, ADD_NAME, UPDATE_SCORE, RESET_SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   name: '',
@@ -24,6 +24,12 @@ function player(state = INITIAL_STATE, action) {
       ...state,
       score: action.payload.score,
       assertions: action.payload.assertions,
+    };
+  case RESET_SCORE:
+    return {
+      ...state,
+      score: 0,
+      assertions: 0,
     };
   default:
     return state;

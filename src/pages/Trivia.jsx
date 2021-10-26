@@ -5,6 +5,7 @@ import Header from '../Component/Header';
 import Timer from '../Component/Timer';
 import { updateScore } from '../redux/actions';
 import '../App.css';
+import getGravatar from '../services/apiGravatar';
 
 class Trivia extends Component {
   constructor() {
@@ -18,9 +19,13 @@ class Trivia extends Component {
     this.startTimer = this.startTimer.bind(this);
     this.getQuestionScore = this.getQuestionScore.bind(this);
     this.handleClickNext = this.handleClickNext.bind(this);
+    this.saveUserScore = this.saveUserScore.bind(this);
   }
 
   componentDidMount() {
+    if (!localStorage.getItem('ranking')) {
+      localStorage.setItem('ranking', JSON.stringify([]));
+    }
     const { userName, userEmail } = this.props;
     const localStorageState = {
       player: {
@@ -53,6 +58,7 @@ class Trivia extends Component {
     const { history } = this.props;
     const { questionIndex } = this.state;
     if (questionIndex === MAX_QUESTIONS) {
+      this.saveUserScore();
       history.push('/feedback');
     } else {
       this.setState((prevState) => ({
@@ -61,6 +67,21 @@ class Trivia extends Component {
         questionAnswered: false,
       }));
     }
+  }
+
+  saveUserScore() {
+    const { userName, userEmail, userScore } = this.props;
+
+    const userRank = ({
+      name: userName,
+      score: userScore,
+      picture: getGravatar(userEmail),
+    });
+
+    const currentRanking = JSON.parse(localStorage.getItem('ranking'));
+    currentRanking.push(userRank);
+    currentRanking.sort((a, b) => b.score - a.score);
+    localStorage.setItem('ranking', JSON.stringify(currentRanking));
   }
 
   startTimer() {
@@ -160,6 +181,7 @@ Trivia.propTypes = {
   })).isRequired,
   userEmail: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
+  userScore: PropTypes.string.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
@@ -167,6 +189,7 @@ const mapStateToProps = (state) => ({
   receviQuestions: state.trivia.questions,
   userName: state.player.name,
   userEmail: state.player.gravatarEmail,
+  userScore: state.player.score,
 });
 
 const mapDispatchToProps = (dispatch) => ({
