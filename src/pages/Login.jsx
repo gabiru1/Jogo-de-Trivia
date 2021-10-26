@@ -17,6 +17,11 @@ class Login extends Component {
     this.handleClickSettings = this.handleClickSettings.bind(this);
   }
 
+  componentDidMount() {
+    const { resetScore } = this.props;
+    resetScore();
+  }
+
   handleChange({ target: { value, name } }) {
     this.setState({
       [name]: value,
@@ -88,12 +93,14 @@ Login.propTypes = {
   getName: PropTypes.func.isRequired,
   getQuestions: PropTypes.func.isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  resetScore: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   getEmail: (email) => dispatch(userActions.addEmail(email)),
   getName: (name) => dispatch(userActions.addName(name)),
   getQuestions: (payload) => dispatch(fetchQuestions(payload)),
+  resetScore: () => dispatch(userActions.resetScore()),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
