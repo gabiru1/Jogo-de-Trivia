@@ -34,10 +34,6 @@ class Trivia extends Component {
     this.startTimer();
   }
 
-  /*   componentDidUpdate() {
-    this.resetState();
-  } */
-
   getQuestionScore() {
     const { timer, questionIndex } = this.state;
     const { receviQuestions } = this.props;
@@ -65,10 +61,6 @@ class Trivia extends Component {
         questionAnswered: false,
       }));
     }
-    /* const getAllButtons = document.querySelectorAll('button');
-    getAllButtons.forEach((btn) => {
-      btn.style.border = '1px solid rgb(0, 0, 0)';
-    }); */
   }
 
   startTimer() {
@@ -82,22 +74,8 @@ class Trivia extends Component {
     }
   }
 
-  // >>>> consultado o pr do grupo 9
   handleAnswerClick({ target: { value } }) {
-    const getAllButtons = document.querySelectorAll('button');
     const { dispatchUpdateScore } = this.props;
-
-    getAllButtons.forEach((btn) => {
-      if (btn.value === 'wrong-ans') {
-        /* btn.classList.add('wrongAnswer'); */
-        btn.style.border = '3px solid rgb(255, 0, 0)';
-      }
-      if (btn.value === 'correct-ans') {
-        /* btn.classList.add('correctAnswer'); */
-        btn.style.border = '3px solid rgb(6, 240, 15)';
-      }
-    });
-    // <<<< consultado o pr do grupo 9
 
     if (value === 'correct-ans') {
       const prevLocalStorageState = JSON.parse(localStorage.getItem('state'));
@@ -131,7 +109,7 @@ class Trivia extends Component {
         data-testid="btn-next"
         onClick={ this.handleClickNext }
       >
-        próxima
+        Próxima
       </button>
     );
 
@@ -149,7 +127,7 @@ class Trivia extends Component {
               type="button"
               disabled={ timer === 0 || questionAnswered }
               value="wrong-ans"
-              // className={ questionAnswered ? 'wrongAnswer' : '' }
+              style={ questionAnswered ? { border: '3px solid rgb(255, 0, 0)' } : null }
             >
               {question}
             </button>
@@ -161,7 +139,7 @@ class Trivia extends Component {
           type="button"
           disabled={ timer === 0 || questionAnswered }
           value="correct-ans"
-          // className={ questionAnswered ? 'correctAnswer' : '' }
+          style={ questionAnswered ? { border: '3px solid rgb(6, 240, 15)' } : null }
         >
           { receviQuestions[questionIndex].correct_answer }
         </button>
