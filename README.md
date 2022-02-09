@@ -28,10 +28,9 @@ Você deverá desenvolver um jogo de perguntas e respostas baseado no jogo **Tri
 
 ## Participantes do projeto
 [Lucas Alvez](https://github.com/lucalves3) <br/>
-[Gabriel Sampaio Bicalho](https://github.com/gabiru1),
-[Julio Cesar Arana](https://github.com/jarana-2020),
-[Renato Bispo](https://github.com/renatosbispo),
-[Thales Lima](https://github.com/thales-bpl),
+[Gabriel Sampaio Bicalho](https://github.com/gabiru1) <br/>
+[Julio Cesar Arana](https://github.com/jarana-2020) <br/>
+[Renato Bispo](https://github.com/renatosbispo) <br/>
+[Thales Lima](https://github.com/thales-bpl)
 
 ---
-main-group-13-develop
